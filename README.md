@@ -55,8 +55,8 @@ Welcome to the Flask Web Project! This versatile Flask application combines thre
      .\venv\Scripts\activate
      
     - On Unix or MacOS:
-     ```bash
-     source venv/bin/activate
+      ```bash
+      source venv/bin/activate
 
 6. Install dependencies:
 
@@ -76,4 +76,6 @@ This project is licensed under the MIT License.
 ## Contact
 
 For any questions or feedback, feel free to reach out to Technedict at technedict@gmail.com.
+
+Happy coding! 🚀
 
