@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDoist</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="{{ url_for('static', filename='index.css') }}" rel="stylesheet"></link>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"></link>
+</head>
+<body>
+    <div class="message animate__animated animate__fadeInDown">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            {% if category == "success" %}
+                <p style="color: green;" id="message">{{ message }}</p>
+            {% elif category == "danger" %}
+                <p style="color: red;" id="message">{{ message }}</p>
+            {% elif category == "info" %}
+                <p style="color: orange;" id="message">{{ message }}</p>
+            {% else %}
+                <p id="message">{{ message }}</p>
+            {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+        {% for error in form.todotext.errors %}
+            <p id="message" style="color: red;">{{ error }}</p>
+        {% endfor %}
+    </div>
+    <div class="input">
+        {% if form %}
+        <form action="" method="post" novalidate>
+            {{ form.hidden_tag() }}
+            {{ form.todotext(id='todo', placeholder='Add An Item') }}
+            {{ form.submit() }}
+        </form>
+        {% endif %}
+    </div>
+    <div class="todocon">
+        <div class="todo">
+            <h4>Tasks</h4>
+            {% for todo in todos %}
+                <div class="todotxt">
+                    <a href="{{ url_for('checked', id = todo.id) }}" class="icnsl bx bx-checkbox"></a>
+                    <p>{{ todo.todotext }}</p>
+                    <a href="{{ url_for('delete', id = todo.id) }}" class="icnsr bx bxs-trash-alt"></a>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="ctodo">
+            <h4>Completed</h4>
+            {% for ctodo in ctodos %}
+                <div class="todotxt">
+                    <a href="{{ url_for('checked', id = ctodo.id) }}" class="icnsl bx bx-checkbox-checked"></a>
+                    <p>{{ ctodo.todotext }}</p>
+                    <a href="{{ url_for('delete', id = ctodo.id) }}" class="icnsr bx bxs-trash-alt"></a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
+</body>
+</html>
